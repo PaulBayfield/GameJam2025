@@ -23,7 +23,6 @@ class Controller:
         """
         self.game = game
 
-
     def event(self, event: Event) -> None:
         """
         Fonction pour gérer les événements
@@ -37,23 +36,36 @@ class Controller:
         # Traite les touches du clavier
         if event.type == pygame.KEYDOWN:
             # Traite les touches fléchées
-            if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
+            if event.key in [
+                pygame.K_LEFT,
+                pygame.K_RIGHT,
+                pygame.K_UP,
+                pygame.K_DOWN,
+            ]:
                 self.game.movement.handle(event.key)
 
             # Traite les touches ZQSD
-            if self.game.settings.KEYBOARD_TYPE == KeyboardType.ZQSD and event.key in [
-                pygame.K_q,
-                pygame.K_d,
-                pygame.K_z,
-                pygame.K_s,
-            ]:
+            if (
+                self.game.settings.KEYBOARD_TYPE == KeyboardType.ZQSD
+                and event.key
+                in [
+                    pygame.K_q,
+                    pygame.K_d,
+                    pygame.K_z,
+                    pygame.K_s,
+                ]
+            ):
                 self.game.movement.handle(event.key)
 
             # Traite les touches WASD
-            if self.game.settings.KEYBOARD_TYPE == KeyboardType.WASD and event.key in [
-                pygame.K_a,
-                pygame.K_d,
-                pygame.K_w,
-                pygame.K_s,
-            ]:
+            if (
+                self.game.settings.KEYBOARD_TYPE == KeyboardType.WASD
+                and event.key
+                in [
+                    pygame.K_a,
+                    pygame.K_d,
+                    pygame.K_w,
+                    pygame.K_s,
+                ]
+            ):
                 self.game.movement.handle(event.key)

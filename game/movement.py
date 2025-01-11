@@ -44,7 +44,6 @@ class Movement:
             pygame.K_s: Direction.DOWN,
         }
 
-
     def handle(
         self,
         key: Literal[
@@ -64,7 +63,11 @@ class Movement:
         Fonction pour gérer les mouvements du joueur
 
         :param key: La touche du clavier
-        :type key: Literal["pygame.K_LEFT", "pygame.K_RIGHT", "pygame.K_UP", "pygame.K_DOWN", "pygame.K_q", "pygame.K_d", "pygame.K_z", "pygame.K_s", "pygame.K_a", "pygame.K_w"]
+        :type key: Literal["pygame.K_LEFT", "pygame.K_RIGHT", "pygame.K_UP",
+                                 "pygame.K_DOWN", "pygame.K_q", "pygame.K_d",
+                                 "pygame.K_z", "pygame.K_s", "pygame.K_a",
+                                 "pygame.K_w"
+                              ]
         """
         # Vérifie les touches fléchées
         if key in self.key_mappings:
@@ -81,7 +84,6 @@ class Movement:
             and key in self.wasd_mappings
         ):
             print(self.wasd_mappings[key])
-
 
     def move(self, direction: Direction) -> None:
         """

@@ -33,7 +33,6 @@ class Game:
 
         self.running = True
 
-
     def main(self) -> None:
         """
         Fonction principale du jeu
@@ -52,13 +51,11 @@ class Game:
         for event in pygame.event.get():
             self.controller.event(event)
 
-
     def update(self) -> None:
         """
         Fonction pour mettre à jour les éléments du jeu
         """
         pass
-
 
     def draw(self) -> None:
         """
