@@ -15,9 +15,31 @@ pre-commit install
 
 ### Installation
 
+Pour installer le jeu, il suffit de cloner le dépôt Git :
+
+```bash
+git clone https://github.com/PaulBayfield/GameJam2025.git
+```
+
+Puis de se rendre dans le dossier du jeu :
+
+```bash
+cd GameJam2025
+```
+
+Enfin, il faut installer les dépendances du jeu :
+
+```bash
+pip install -r requirements.txt
+```
 
 ### Lancement
 
+Pour lancer le jeu, il suffit de lancer le script `main.py` :
+
+```bash
+python main.py
+```
 
 ### Règles du jeu
 
