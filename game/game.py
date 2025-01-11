@@ -9,6 +9,7 @@ class Game:
     """
     Classe principal du jeu
     """
+
     def __init__(self) -> None:
         """
         Constructeur de la classe
@@ -18,10 +19,7 @@ class Game:
         self.settings = Settings
 
         self.screen = pygame.display.set_mode(
-            (
-                self.settings.WINDOW_WIDTH, 
-                self.settings.WINDOW_HEIGHT
-            )
+            (self.settings.WINDOW_WIDTH, self.settings.WINDOW_HEIGHT)
         )
 
         pygame.display.set_caption("Game")
@@ -46,7 +44,6 @@ class Game:
             self.draw()
 
         pygame.quit()
-
 
     def events(self) -> None:
         """

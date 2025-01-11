@@ -13,6 +13,7 @@ class Controller:
     """
     Classe pour gérer les contrôles du jeu
     """
+
     def __init__(self, game: "Game") -> None:
         """
         Constructeur de la classe
@@ -40,9 +41,19 @@ class Controller:
                 self.game.movement.handle(event.key)
 
             # Traite les touches ZQSD
-            if self.game.settings.KEYBOARD_TYPE == KeyboardType.ZQSD and event.key in [pygame.K_q, pygame.K_d, pygame.K_z, pygame.K_s]:
+            if self.game.settings.KEYBOARD_TYPE == KeyboardType.ZQSD and event.key in [
+                pygame.K_q,
+                pygame.K_d,
+                pygame.K_z,
+                pygame.K_s,
+            ]:
                 self.game.movement.handle(event.key)
 
             # Traite les touches WASD
-            if self.game.settings.KEYBOARD_TYPE == KeyboardType.WASD and event.key in [pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s]:
+            if self.game.settings.KEYBOARD_TYPE == KeyboardType.WASD and event.key in [
+                pygame.K_a,
+                pygame.K_d,
+                pygame.K_w,
+                pygame.K_s,
+            ]:
                 self.game.movement.handle(event.key)

@@ -13,6 +13,7 @@ class Movement:
     """
     Classe pour gérer les mouvements du joueur
     """
+
     def __init__(self, game: "Game") -> None:
         """
         Constructeur de la classe
@@ -70,9 +71,15 @@ class Movement:
             print(self.key_mappings[key])
 
         # Vérifie les touches ZQSD ou WASD
-        if self.game.settings.KEYBOARD_TYPE == KeyboardType.ZQSD and key in self.zqsd_mappings:
+        if (
+            self.game.settings.KEYBOARD_TYPE == KeyboardType.ZQSD
+            and key in self.zqsd_mappings
+        ):
             print(self.zqsd_mappings[key])
-        elif self.game.settings.KEYBOARD_TYPE == KeyboardType.WASD and key in self.wasd_mappings:
+        elif (
+            self.game.settings.KEYBOARD_TYPE == KeyboardType.WASD
+            and key in self.wasd_mappings
+        ):
             print(self.wasd_mappings[key])
 
 
