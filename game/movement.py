@@ -71,19 +71,19 @@ class Movement:
         """
         # Vérifie les touches fléchées
         if key in self.key_mappings:
-            print(self.key_mappings[key])
+            self.move(self.key_mappings[key])
 
         # Vérifie les touches ZQSD ou WASD
         if (
             self.game.settings.KEYBOARD_TYPE == KeyboardType.ZQSD
             and key in self.zqsd_mappings
         ):
-            print(self.zqsd_mappings[key])
+            self.move(self.zqsd_mappings[key])
         elif (
             self.game.settings.KEYBOARD_TYPE == KeyboardType.WASD
             and key in self.wasd_mappings
         ):
-            print(self.wasd_mappings[key])
+            self.move(self.wasd_mappings[key])
 
     def move(self, direction: Direction) -> None:
         """
