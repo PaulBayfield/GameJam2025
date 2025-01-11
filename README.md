@@ -5,6 +5,14 @@ Dans le cadre de la Game Jam 2025 organisé par le BUT Informatique de l'IUT de 
 ## Instructions
 
 
+### Développement
+
+Pour exécuter le linter Ruff juste avant chaque commit, il est nécessaire d'installer les hooks de pré-commit :
+
+```bash
+pre-commit install
+```
+
 ### Installation
 
 
