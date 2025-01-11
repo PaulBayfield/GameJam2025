@@ -30,6 +30,8 @@ cd GameJam2025
 Enfin, il faut installer les dépendances du jeu :
 
 ```bash
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -38,7 +40,7 @@ pip install -r requirements.txt
 Pour lancer le jeu, il suffit de lancer le script `main.py` :
 
 ```bash
-python main.py
+python __main__.py
 ```
 
 ### Règles du jeu
