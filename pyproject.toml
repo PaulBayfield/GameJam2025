@@ -1,0 +1,22 @@
+[project]
+name = "GameJam2025"
+version = "0.1.0"
+description = "A python game about Pirate, Knight and running Hen"
+authors = [
+    { name = "Paul Bayfield" },
+    { name = "Lucas Debeve" },
+    { name = "Justin Pingard" },
+]
+readme = "README.md"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+extend-select = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+docstring-code-format = true

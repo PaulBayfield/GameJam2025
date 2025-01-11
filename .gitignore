@@ -1,0 +1,9 @@
+.venv/
+.ruff_cache/
+
+.vscode/
+
+__pycache__/
+.pytest_cache/
+
+.coverage
