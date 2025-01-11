@@ -1,28 +1,57 @@
 import pygame
+
 from settings import WINDOW_HEIGHT, WINDOW_WIDTH, FPS
 
-pygame.init()
 
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("Case By Case")
-clock = pygame.time.Clock()
+class Game:
+    """
+    Classe principal du jeu
+    """
+    def __init__(self) -> None:
+        """
+        Constructeur de la classe
+        """
+        pygame.init()
+
+        self.screen = pygame.display.set_mode(
+            (
+                WINDOW_WIDTH, 
+                WINDOW_HEIGHT
+            )
+        )
+
+        pygame.display.set_caption("Game")
+
+        self.clock = pygame.time.Clock()
+
+        self.running = True
 
 
-def main():
-	running = True
-	while running:
-		screen.fill((0, 0, 0))
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				running = False
+    def main(self):
+        while self.running:
+            self.events()
+            self.update()
+            self.draw()
 
-		# Affichage des éléments
-		screen.fill((0, 0, 0))
-		pygame.display.flip()
-		clock.tick(FPS)
+        pygame.quit()
 
-	pygame.quit()
+
+    def events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+
+
+    def update(self):
+        pass
+
+
+    def draw(self):
+        self.screen.fill((0, 0, 0))
+        pygame.display.flip()
+        self.clock.tick(FPS)
 
 
 if __name__ == "__main__":
-	main()
+    game = Game()
+    game.main()
