@@ -4,6 +4,7 @@ from settings import Settings
 from .controller import Controller
 from .movement import Movement
 from .map import Map
+from .player import Player
 
 
 class Game:
@@ -38,6 +39,9 @@ class Game:
         self.controller = Controller(self)
         self.movement = Movement(self)
         self.map = Map(self)
+        self.player = Player(
+            "Poulet",
+        )
 
         self.running = True
 
@@ -48,7 +52,7 @@ class Game:
         pygame.display.set_caption("Menu")
 
         while self.running:
-            # Set the bavkground image for the menu
+            # Set the background image for the menu
             background = pygame.image.load("assets/images/menu.jpg")
             # Resize the image to fit the screen and preserve the aspect ratio
             background = pygame.transform.scale(
@@ -107,7 +111,8 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
 
-            pygame.display.flip()
+            if self.running:
+                pygame.display.flip()
 
     def main(self) -> None:
         """

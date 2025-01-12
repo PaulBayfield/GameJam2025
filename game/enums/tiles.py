@@ -3,7 +3,7 @@ from enum import Enum
 
 class Tiles(Enum):
     """
-    Enumération pour les types de clavier
+    Énumération pour les types de clavier
     """
 
     # DIRT = {

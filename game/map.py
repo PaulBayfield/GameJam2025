@@ -1,7 +1,7 @@
 import pygame
 import numpy as np
-from .core import generate_perlin_noise_2d
 
+from .core import generate_perlin_noise_2d
 from .enums.tiles import Tiles
 from typing import TYPE_CHECKING
 

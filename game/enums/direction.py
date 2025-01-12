@@ -3,7 +3,7 @@ from enum import Enum
 
 class Direction(Enum):
     """
-    Enumération pour les directions
+    Énumération pour les directions
     """
 
     UP = 0
