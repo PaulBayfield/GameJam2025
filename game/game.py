@@ -64,6 +64,5 @@ class Game:
         Fonction pour dessiner les éléments du jeu
         """
         pygame.display.flip()
-        self.map.generate()
         self.map.draw(self.screen)
         self.clock.tick(self.settings.FPS)
