@@ -53,7 +53,7 @@ class Game:
         pygame.display.set_caption("Menu")
 
         while self.running:
-            # Set the background image for the menu
+            # Set the bavkground image for the menu
             background = pygame.image.load("assets/images/menu.jpg")
             # Resize the image to fit the screen and preserve the aspect ratio
             background = pygame.transform.scale(
@@ -84,22 +84,11 @@ class Game:
 
             # Create the buttons
             text = pygame.image.load("assets/images/menu_text.png")
-            # Max width of the text
-            max_width = self.settings.WINDOW_WIDTH // 3 * 2
-            # Resize the text to fit the screen
-            text = pygame.transform.scale(
-                text,
-                (
-                    max_width,
-                    int(text.get_height() * max_width / text.get_width()),
-                ),
-            )
-
             self.screen.blit(
                 text,
                 (
                     self.settings.WINDOW_WIDTH // 2 - text.get_width() // 2,
-                    self.settings.WINDOW_HEIGHT - text.get_height() - 50,
+                    self.settings.WINDOW_HEIGHT // 2 - text.get_height() // 2,
                 ),
             )
 
@@ -107,13 +96,10 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
-                        self.main()
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
 
-            if self.running:
-                pygame.display.flip()
+            pygame.display.flip()
 
     def main(self) -> None:
         """
