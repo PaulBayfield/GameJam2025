@@ -79,11 +79,22 @@ class Game:
 
             # Create the buttons
             text = pygame.image.load("assets/images/menu_text.png")
+            # Max width of the text
+            max_width = self.settings.WINDOW_WIDTH // 3 * 2
+            # Resize the text to fit the screen
+            text = pygame.transform.scale(
+                text,
+                (
+                    max_width,
+                    int(text.get_height() * max_width / text.get_width()),
+                ),
+            )
+
             self.screen.blit(
                 text,
                 (
                     self.settings.WINDOW_WIDTH // 2 - text.get_width() // 2,
-                    self.settings.WINDOW_HEIGHT // 2 - text.get_height() // 2,
+                    self.settings.WINDOW_HEIGHT - text.get_height() - 50,
                 ),
             )
 
