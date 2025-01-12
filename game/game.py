@@ -3,6 +3,7 @@ import pygame
 from settings import Settings
 from .controller import Controller
 from .movement import Movement
+from .map import Map
 
 
 class Game:
@@ -30,6 +31,7 @@ class Game:
         # Composants du jeu
         self.controller = Controller(self)
         self.movement = Movement(self)
+        self.map = Map(self)
 
         self.running = True
 
@@ -61,6 +63,6 @@ class Game:
         """
         Fonction pour dessiner les éléments du jeu
         """
-        self.screen.fill((0, 0, 0))
         pygame.display.flip()
+        self.map.draw(self.screen)
         self.clock.tick(self.settings.FPS)
