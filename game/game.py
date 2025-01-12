@@ -41,6 +41,74 @@ class Game:
 
         self.running = True
 
+    def main_menu(self) -> None:
+        """
+        Fonction pour afficher le menu principal
+        """
+        pygame.display.set_caption("Menu")
+
+        while self.running:
+            # Set the bavkground image for the menu
+            background = pygame.image.load("assets/images/menu.jpg")
+            # Resize the image to fit the screen and preserve the aspect ratio
+            background = pygame.transform.scale(
+                background,
+                (
+                    self.settings.WINDOW_WIDTH,
+                    int(
+                        background.get_height()
+                        * self.settings.WINDOW_WIDTH
+                        / background.get_width()
+                    ),
+                ),
+            )
+            if background.get_height() < self.settings.WINDOW_HEIGHT:
+                background = pygame.transform.scale(
+                    background,
+                    (
+                        int(
+                            background.get_width()
+                            * self.settings.WINDOW_HEIGHT
+                            / background.get_height()
+                        ),
+                        self.settings.WINDOW_HEIGHT,
+                    ),
+                )
+
+            self.screen.blit(background, (0, 0))
+
+            # Create the buttons
+            text = pygame.image.load("assets/images/menu_text.png")
+            # Max width of the text
+            max_width = self.settings.WINDOW_WIDTH // 3 * 2
+            # Resize the text to fit the screen
+            text = pygame.transform.scale(
+                text,
+                (
+                    max_width,
+                    int(text.get_height() * max_width / text.get_width()),
+                ),
+            )
+
+            self.screen.blit(
+                text,
+                (
+                    self.settings.WINDOW_WIDTH // 2 - text.get_width() // 2,
+                    self.settings.WINDOW_HEIGHT - text.get_height() - 50,
+                ),
+            )
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        self.main()
+                    if event.key == pygame.K_ESCAPE:
+                        self.running = False
+
+            pygame.display.flip()
+
     def main(self) -> None:
         """
         Fonction principale du jeu
