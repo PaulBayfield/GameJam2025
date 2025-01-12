@@ -36,12 +36,13 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # Composants du jeu
+        self.player = Player(
+            self,
+            "Poulet",
+        )
         self.controller = Controller(self)
         self.movement = Movement(self)
         self.map = Map(self)
-        self.player = Player(
-            "Poulet",
-        )
 
         self.running = True
 
@@ -136,7 +137,7 @@ class Game:
         """
         Fonction pour mettre à jour les éléments du jeu
         """
-        pass
+        self.player.move()
 
     def draw(self) -> None:
         """
@@ -144,4 +145,5 @@ class Game:
         """
         pygame.display.flip()
         self.map.draw(self.screen)
+        self.player.draw(self.screen)
         self.clock.tick(self.settings.FPS)
