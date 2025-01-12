@@ -107,6 +107,8 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        self.main()
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
 
