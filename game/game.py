@@ -120,6 +120,8 @@ class Game:
         """
         Fonction principale du jeu
         """
+        pygame.display.set_caption("Game")
+
         while self.running:
             self.events()
             self.draw()

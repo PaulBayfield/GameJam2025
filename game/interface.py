@@ -17,7 +17,7 @@ class Interface:
     STAMINA_COLOR = (109, 117, 238)
     STAMINA_LOW_COLOR = (63, 72, 204)
 
-    def __init__(self, game: "Game"):
+    def __init__(self, game: "Game") -> None:
         """
         Constructeur de la classe
 
