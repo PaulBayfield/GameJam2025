@@ -97,3 +97,9 @@ class Movement:
             print("LEFT")
         elif direction == Direction.RIGHT:
             print("RIGHT")
+
+    def dash(self) -> None:
+        """
+        Fonction pour faire un dash
+        """
+        print("DASH")

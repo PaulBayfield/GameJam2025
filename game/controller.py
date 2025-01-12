@@ -69,3 +69,7 @@ class Controller:
                 ]
             ):
                 self.game.movement.handle(event.key)
+
+            # Traite la touche ESPACE
+            if event.key == pygame.K_SPACE:
+                self.game.movement.dash()
