@@ -18,9 +18,15 @@ class Game:
         pygame.init()
 
         self.settings = Settings
+        info = pygame.display.Info()
+        if self.settings.IS_FULLSCREEN:
+            self.settings.WINDOW_WIDTH = info.current_w
+            self.settings.WINDOW_HEIGHT = info.current_h
+            self.settings.TILE_SIZE = self.settings.WINDOW_WIDTH // 40
 
         self.screen = pygame.display.set_mode(
-            (self.settings.WINDOW_WIDTH, self.settings.WINDOW_HEIGHT)
+            (self.settings.WINDOW_WIDTH, self.settings.WINDOW_HEIGHT),
+            pygame.FULLSCREEN if self.settings.IS_FULLSCREEN else 0,
         )
 
         pygame.display.set_caption("Game")

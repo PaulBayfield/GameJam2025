@@ -46,9 +46,9 @@ class Map:
             row = []
             for x in range(noise.shape[1]):
                 value = noise[y, x]
-                if value < -0.1:
+                if value < -0.15:
                     row.append(Tiles.GRASS)
-                elif value < 0.5:
+                elif value < 0:
                     row.append(Tiles.GRASS_MEDIUM)
                 else:
                     row.append(Tiles.GRASS_LARGE)
