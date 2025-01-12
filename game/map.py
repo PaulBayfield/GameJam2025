@@ -48,8 +48,6 @@ class Map:
                 value = noise[y, x]
                 if value < -0.1:
                     row.append(Tiles.GRASS)
-                elif value < 0.1:
-                    row.append(Tiles.GRASS_SMALL)
                 elif value < 0.5:
                     row.append(Tiles.GRASS_MEDIUM)
                 else:
