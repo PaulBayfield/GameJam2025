@@ -4,6 +4,7 @@ from settings import Settings
 from .controller import Controller
 from .movement import Movement
 from .map import Map
+from .interface import Interface
 from .player import Player
 
 
@@ -39,6 +40,7 @@ class Game:
         self.controller = Controller(self)
         self.movement = Movement(self)
         self.map = Map(self)
+        self.interface = Interface(self)
         self.player = Player(
             "Poulet",
         )
@@ -120,8 +122,8 @@ class Game:
         """
         while self.running:
             self.events()
-            self.update()
             self.draw()
+            self.update()
 
         pygame.quit()
 
@@ -136,7 +138,7 @@ class Game:
         """
         Fonction pour mettre à jour les éléments du jeu
         """
-        pass
+        self.interface.update()
 
     def draw(self) -> None:
         """
