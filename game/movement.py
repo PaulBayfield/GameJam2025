@@ -24,6 +24,8 @@ class Movement:
         self.game = game
         self.player = self.game.player
 
+        self.direction = Direction.DOWN
+
         self.key_mappings = {
             pygame.K_LEFT: Direction.LEFT,
             pygame.K_RIGHT: Direction.RIGHT,
@@ -90,17 +92,11 @@ class Movement:
         """
         Fonction pour déplacer le joueur
         """
-        if direction == Direction.UP:
-            self.player.change_direction("up")
-        elif direction == Direction.DOWN:
-            self.player.change_direction("down")
-        elif direction == Direction.LEFT:
-            self.player.change_direction("left")
-        elif direction == Direction.RIGHT:
-            self.player.change_direction("right")
+        self.direction = direction
+        self.player.change_direction(direction)
 
     def dash(self) -> None:
         """
         Fonction pour faire un dash
         """
-        print("DASH")
+        self.player.dash(self.direction)
