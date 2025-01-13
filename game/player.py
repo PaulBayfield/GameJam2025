@@ -2,7 +2,6 @@ import pygame
 
 from .dataclasses.player import PlayerData
 
-
 class Player(PlayerData, pygame.sprite.Sprite):
     def __init__(self, game, name: str) -> None:
         PlayerData.__init__(self, name)

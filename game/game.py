@@ -61,6 +61,7 @@ class Game:
             background = pygame.image.load(
                 "assets/images/menu.jpg"
             ).convert_alpha()
+
             # Resize the image to fit the screen and preserve the aspect ratio
             background = pygame.transform.scale(
                 background,
