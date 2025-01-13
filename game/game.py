@@ -149,6 +149,8 @@ class Game:
         Fonction pour mettre à jour les éléments du jeu
         """
         self.player.move()
+        self.player.heal()
+        self.player.stamina_regen()
         self.interface.update()
 
     def draw(self) -> None:
