@@ -72,16 +72,16 @@ class Player(PlayerData, pygame.sprite.Sprite):
 
         self.rect.topleft = (self.x, self.y)
 
+    def move(self) -> None:
+        print(f"{self.name} is moving")
 
-    def attack(self):
+    def attack(self) -> None:
         print(f"{self.name} is attacking")
 
-
-    def heal(self):
+    def heal(self) -> None:
         print(f"{self.name} is healing")
 
-
-    def dash(self):
+    def dash(self) -> None:
         print(f"{self.name} is dashing")
 
 
