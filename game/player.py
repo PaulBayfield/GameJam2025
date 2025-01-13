@@ -1,6 +1,7 @@
 from .dataclasses.player import PlayerData
 import pygame
 
+
 class Player(PlayerData, pygame.sprite.Sprite):
     def __init__(self, game, name: str) -> None:
         PlayerData.__init__(self, name)
@@ -26,7 +27,6 @@ class Player(PlayerData, pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
-
     def load_sprites(self, direction: str) -> list[pygame.Surface]:
         """Charge les sprites pour une direction donnée."""
         sprite_list = []
@@ -46,7 +46,6 @@ class Player(PlayerData, pygame.sprite.Sprite):
             self.direction = direction
             self.current_sprite = 0
 
-
     def move(self) -> None:
         if self.direction == "up":
             self.y -= self.speed
@@ -54,7 +53,8 @@ class Player(PlayerData, pygame.sprite.Sprite):
         elif self.direction == "down":
             self.y += self.speed
             self.y = min(
-                self.game.settings.WINDOW_HEIGHT - self.image.get_height(), self.y
+                self.game.settings.WINDOW_HEIGHT - self.image.get_height(),
+                self.y,
             )
         elif self.direction == "left":
             self.x -= self.speed
@@ -62,7 +62,8 @@ class Player(PlayerData, pygame.sprite.Sprite):
         elif self.direction == "right":
             self.x += self.speed
             self.x = min(
-                self.game.settings.WINDOW_WIDTH - self.image.get_width(), self.x
+                self.game.settings.WINDOW_WIDTH - self.image.get_width(),
+                self.x,
             )
 
         self.current_sprite += 0.1
@@ -72,9 +73,6 @@ class Player(PlayerData, pygame.sprite.Sprite):
 
         self.rect.topleft = (self.x, self.y)
 
-    def move(self) -> None:
-        print(f"{self.name} is moving")
-
     def attack(self) -> None:
         print(f"{self.name} is attacking")
 
@@ -83,7 +81,6 @@ class Player(PlayerData, pygame.sprite.Sprite):
 
     def dash(self) -> None:
         print(f"{self.name} is dashing")
-
 
     def draw(self, screen: pygame.Surface) -> None:
         """
