@@ -22,6 +22,7 @@ class Movement:
         :type game: Game
         """
         self.game = game
+        self.player = self.game.player
 
         self.key_mappings = {
             pygame.K_LEFT: Direction.LEFT,
@@ -90,13 +91,13 @@ class Movement:
         Fonction pour déplacer le joueur
         """
         if direction == Direction.UP:
-            print("UP")
+            self.player.change_direction("up")
         elif direction == Direction.DOWN:
-            print("DOWN")
+            self.player.change_direction("down")
         elif direction == Direction.LEFT:
-            print("LEFT")
+            self.player.change_direction("left")
         elif direction == Direction.RIGHT:
-            print("RIGHT")
+            self.player.change_direction("right")
 
     def dash(self) -> None:
         """

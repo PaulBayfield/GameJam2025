@@ -37,13 +37,14 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # Composants du jeu
+        self.player = Player(
+            self,
+            "Poulet",
+        )
         self.controller = Controller(self)
         self.movement = Movement(self)
         self.map = Map(self)
         self.interface = Interface(self)
-        self.player = Player(
-            "Poulet",
-        )
 
         self.running = True
 
@@ -54,7 +55,7 @@ class Game:
         pygame.display.set_caption("Menu")
 
         while self.running:
-            # Set the background image for the menu
+            # Set the bavkground image for the menu
             background = pygame.image.load("assets/images/menu.jpg")
             # Resize the image to fit the screen and preserve the aspect ratio
             background = pygame.transform.scale(
@@ -113,8 +114,7 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
 
-            if self.running:
-                pygame.display.flip()
+            pygame.display.flip()
 
     def main(self) -> None:
         """
@@ -140,6 +140,7 @@ class Game:
         """
         Fonction pour mettre à jour les éléments du jeu
         """
+        self.player.move()
         self.interface.update()
 
     def draw(self) -> None:
@@ -148,4 +149,5 @@ class Game:
         """
         pygame.display.flip()
         self.map.draw(self.screen)
+        self.player.draw(self.screen)
         self.clock.tick(self.settings.FPS)
