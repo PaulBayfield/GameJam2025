@@ -67,7 +67,9 @@ class Map:
             for y, row in enumerate(self.map):
                 for x, tile in enumerate(row):
                     if "image" in tile.value.keys():
-                        image = pygame.image.load(tile.value["image"])
+                        image = pygame.image.load(
+                            tile.value["image"]
+                        ).convert_alpha()
                         image = pygame.transform.scale(
                             image,
                             (
@@ -96,4 +98,4 @@ class Map:
                             ),
                         )
 
-            self.render = False
+            # self.render = False

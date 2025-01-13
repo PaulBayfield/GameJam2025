@@ -1,5 +1,6 @@
-from .dataclasses.player import PlayerData
 import pygame
+
+from .dataclasses.player import PlayerData
 
 
 class Player(PlayerData, pygame.sprite.Sprite):
@@ -14,7 +15,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
 
         self.health = 100
         self.stamina = 100
-        self.speed = 5
+        self.speed = 10
 
         self.sprites = {
             "up": self.load_sprites("up"),
@@ -73,6 +74,17 @@ class Player(PlayerData, pygame.sprite.Sprite):
 
         self.rect.topleft = (self.x, self.y)
 
+    def damage(self, amount: int) -> None:
+        """
+        Inflige des dégâts au joueur
+
+        :param amount: La quantité de dégâts
+        :type amount: int
+        """
+        self.health -= amount
+        if self.health <= 0:
+            self.health = 0
+
     def attack(self) -> None:
         print(f"{self.name} is attacking")
 
@@ -88,5 +100,4 @@ class Player(PlayerData, pygame.sprite.Sprite):
         :param screen: L'écran du jeu
         :type screen: pygame.Surface
         """
-        # screen.fill((0, 0, 0), self.rect)  # Efface la trace
         screen.blit(self.image, (self.x, self.y))
