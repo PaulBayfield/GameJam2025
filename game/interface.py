@@ -30,13 +30,13 @@ class Interface:
         self.player_stamina = None
 
         self.heart_image = pygame.transform.scale(
-            pygame.image.load("assets/heart.png"), (20, 20)
+            pygame.image.load("assets/heart.png").convert_alpha(), (20, 20)
         )
         self.potion_image = pygame.transform.scale(
-            pygame.image.load("assets/potion.png"), (20, 20)
+            pygame.image.load("assets/potion.png").convert_alpha(), (20, 20)
         )
 
-    def render(self) -> None:
+    def draw(self) -> None:
         """
         Affichage de l'interface de santé et d'endurance
         """
@@ -134,7 +134,7 @@ class Interface:
             self.game.player.health != self.player_health
             or self.game.player.stamina != self.player_stamina
         ):
-            self.render()
+            self.draw()
 
             self.player_health = self.game.player.health
             self.player_stamina = self.game.player.stamina

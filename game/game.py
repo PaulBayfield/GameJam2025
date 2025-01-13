@@ -32,7 +32,9 @@ class Game:
         )
 
         pygame.display.set_caption("Game")
-        pygame.display.set_icon(pygame.image.load("assets/chicken.png"))
+        pygame.display.set_icon(
+            pygame.image.load("assets/chicken.png").convert_alpha()
+        )
 
         self.clock = pygame.time.Clock()
 
@@ -56,7 +58,10 @@ class Game:
 
         while self.running:
             # Set the background image for the menu
-            background = pygame.image.load("assets/images/menu.jpg")
+            background = pygame.image.load(
+                "assets/images/menu.jpg"
+            ).convert_alpha()
+
             # Resize the image to fit the screen and preserve the aspect ratio
             background = pygame.transform.scale(
                 background,
@@ -85,7 +90,9 @@ class Game:
             self.screen.blit(background, (0, 0))
 
             # Create the buttons
-            text = pygame.image.load("assets/images/menu_text.png")
+            text = pygame.image.load(
+                "assets/images/menu_text.png"
+            ).convert_alpha()
             # Max width of the text
             max_width = self.settings.WINDOW_WIDTH // 3 * 2
             # Resize the text to fit the screen
@@ -151,4 +158,5 @@ class Game:
         pygame.display.flip()
         self.map.draw(self.screen)
         self.player.draw(self.screen)
+        self.interface.draw()
         self.clock.tick(self.settings.FPS)
