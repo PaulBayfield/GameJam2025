@@ -1,6 +1,7 @@
 import pygame
 from typing import Optional
 from enum import Enum, auto
+from game.enemies.enemy_spawner import EnemySpawner
 from settings import Settings
 from .controller import Controller
 from .movement import Movement
@@ -85,6 +86,7 @@ class Game:
         self.movement = Movement(self)
         self.map = Map(self)
         self.interface = Interface(self)
+        self.enemy_spawner = EnemySpawner(self)
 
         # Dessine la carte pour la première fois
         self._init_background()
@@ -190,6 +192,7 @@ class Game:
         self.player.heal()
         self.player.stamina_regen()
         self.interface.update()
+        self.enemy_spawner.update()
 
     def optimized_draw(self) -> None:
         """
@@ -202,6 +205,7 @@ class Game:
         self.player.draw(self.sprite_layer)
 
         self.screen.blit(self.background_layer, (0, 0))
+        self.enemy_spawner.draw(self.sprite_layer)  # Draw enemies
         self.screen.blit(self.sprite_layer, (0, 0))  # Draw sprites
 
         # Affiche l'interface
