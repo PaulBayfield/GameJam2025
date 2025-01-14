@@ -1,6 +1,8 @@
 import pygame
-from typing import TYPE_CHECKING
 import random
+
+from typing import TYPE_CHECKING
+
 
 if TYPE_CHECKING:
     from game.game import Game
@@ -19,21 +21,12 @@ class Item:
         :type game: Game
         """
         self.game = game
+
         self.item_image = pygame.transform.scale(
             pygame.image.load("assets/chalencon.png"), (50, 50)
         )
         self.item_spawn = False
         self.rect = self.item_image.get_rect()
-
-    def check_spawn(self):
-        """
-        Vérifie si l'item doit apparaître et le fait apparaître si c'est le cas
-        """
-        if not self.item_spawn:
-            # Effectue un test aléatoire avec une faible probabilité
-            if random.random() < 1:  # 1% de chance que l'item apparaisse
-                self.spawn_item()
-        self.draw()
 
     def spawn_item(self):
         """
@@ -52,6 +45,9 @@ class Item:
         """
         Dessine l'item sur l'écran si il est apparu
         """
-        if self.item_spawn:
-            self.game.screen.blit(self.item_image, self.rect)
-            print("test")
+        if not self.item_spawn:
+            # Effectue un test aléatoire avec une faible probabilité
+            if random.random() < 1:  # 1% de chance que l'item apparaisse
+                self.spawn_item()
+
+        self.game.screen.blit(self.item_image, self.rect)

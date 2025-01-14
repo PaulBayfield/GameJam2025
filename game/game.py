@@ -192,7 +192,6 @@ class Game:
         self.player.heal()
         self.player.stamina_regen()
         self.interface.update()
-        self.item.check_spawn()
 
     def optimized_draw(self) -> None:
         """
@@ -209,6 +208,7 @@ class Game:
 
         # Affiche l'interface
         self.interface.draw()
+        self.item.draw()
 
         pygame.display.flip()
         self.clock.tick(self.settings.FPS)
