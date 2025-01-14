@@ -47,7 +47,13 @@ class Item:
         """
         if not self.item_spawn:
             # Effectue un test aléatoire avec une faible probabilité
-            if random.random() < 1:  # 1% de chance que l'item apparaisse
+            if random.random() < 0.002:  # 1% de chance que l'item apparaisse
                 self.spawn_item()
 
-        self.game.screen.blit(self.item_image, self.rect)
+        self.check_item_picked_up()
+        if self.item_spawn:
+            self.game.screen.blit(self.item_image, self.rect)
+
+    def check_item_picked_up(self):
+        if self.rect.colliderect(self.game.player.rect):
+            self.item_spawn = False
