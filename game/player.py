@@ -1,7 +1,11 @@
 import pygame
-from typing import Dict, List, TYPE_CHECKING
+
 from .dataclasses.player import PlayerData
 from .enums.direction import Direction
+from .enums.game import GameState
+from time import time
+from typing import Dict, List, TYPE_CHECKING
+
 
 if TYPE_CHECKING:
     from game.game import Game
@@ -24,6 +28,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def __init__(self, game: "Game", name: str) -> None:
         """
         Initialise le joueur avec un nom et les données de jeu
+
         :param game: Le jeu
         :type game: Game
         :param name: Le nom du joueur
@@ -35,7 +40,8 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.game = game
         self.position = pygame.math.Vector2(0, 0)  # Using Vector2 for position
         self.direction = Direction.DOWN
-        self.damage_timestamp = pygame.time.get_ticks()
+        self.damage_timestamp = int(time())
+        self.time_to_heal = 0
 
         # Charge et cache toutes les animations de sprites
         self.sprites = self._load_all_sprites()
@@ -46,6 +52,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def _load_all_sprites(self) -> Dict[Direction, List[pygame.Surface]]:
         """
         Charge toutes les animations de sprites pour chaque direction
+
         :return: Un dictionnaire de listes de surfaces pygame
         :rtype: Dict[Direction, List[pygame.Surface]]
         """
@@ -62,6 +69,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def _update_animation(self, speed: float = 0.1) -> None:
         """
         Met à jour l'animation du joueur en fonction de la direction actuelle
+
         :param speed: La vitesse de l'animation
         :type speed: float
         """
@@ -75,6 +83,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def _check_bounds(self, new_pos: pygame.math.Vector2) -> bool:
         """
         Vérifie si la nouvelle position est dans les limites de l'écran
+
         :param new_pos: La nouvelle position du joueur
         :type new_pos: pygame.math.Vector2
         :return: True si la position est valide, False sinon
@@ -92,6 +101,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def _handle_boundary_collision(self, damage_amount: int) -> None:
         """
         Gère les collisions avec les bords de l'écran
+
         :param damage_amount: Le montant de dégâts à infliger
         :type damage_amount: int
         """
@@ -114,6 +124,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def change_direction(self, new_direction: Direction) -> None:
         """
         Change la direction du joueur et réinitialise l'animation
+
         :param new_direction: La nouvelle direction du joueur
         :type new_direction: Direction
         """
@@ -150,24 +161,37 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def damage(self, amount: int) -> None:
         """
         Applique des dégâts au joueur et met à jour le timestamp des dégâts
+
         :param amount: Le montant de dégâts à infliger
         :type amount: int
         """
-        self.health = max(0, self.health - amount)
-        self.damage_timestamp = pygame.time.get_ticks() / self.health_regen
+        self.health -= amount
+        self.damage_timestamp = int(time())
+        self.time_to_heal += int(2 + (1 * self.health_regen))
+
+        if self.health <= 0:
+            self.health = 0
+            self.game.state = GameState.GAME_OVER
 
     def heal(self) -> None:
         """
         Régénère la santé du joueur au fil du temps
         """
-        current_time = pygame.time.get_ticks()
-        if current_time - self.damage_timestamp >= 1000:
-            self.health = min(self.MAX_HEALTH, self.health + 1)
-            self.damage_timestamp = current_time
+        if self.health == self.MAX_HEALTH:
+            return
+
+        if int(time()) - self.damage_timestamp >= self.time_to_heal:
+            self.time_to_heal = 5
+            self.damage_timestamp += 1
+
+            self.health += 1
+            if self.health > self.MAX_HEALTH:
+                self.health = self.MAX_HEALTH
 
     def dash(self, direction: Direction) -> None:
         """
         Effectue un dash dans la direction spécifiée
+
         :param direction: La direction du dash
         :type direction: Direction
         """
@@ -205,6 +229,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def draw(self, screen: pygame.Surface) -> None:
         """
         Dessine le joueur sur l'écran
+
         :param screen: La surface de l'écran
         :type screen: pygame.Surface
         """

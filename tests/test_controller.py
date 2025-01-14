@@ -1,6 +1,8 @@
 import pytest
 import pygame
+
 from unittest.mock import Mock
+from game.enums.game import GameState
 from game.controller import Controller
 from game.enums.keyboard import KeyboardType
 
@@ -14,6 +16,7 @@ class TestController:
         """
         self.mock_game = Mock()
         self.mock_game.running = True
+        self.mock_game.state = GameState.PLAYING
         self.mock_game.settings.KEYBOARD_TYPE = KeyboardType.ZQSD
         self.mock_game.movement.handle = Mock()
         self.mock_game.movement.dash = Mock()
