@@ -7,6 +7,7 @@ from .movement import Movement
 from .map import Map
 from .interface import Interface
 from .player import Player
+from .item import Item
 
 
 class GameState(Enum):
@@ -85,6 +86,7 @@ class Game:
         self.movement = Movement(self)
         self.map = Map(self)
         self.interface = Interface(self)
+        self.item = Item(self)
 
         # Dessine la carte pour la première fois
         self._init_background()
@@ -190,6 +192,7 @@ class Game:
         self.player.heal()
         self.player.stamina_regen()
         self.interface.update()
+        self.item.check_spawn()
 
     def optimized_draw(self) -> None:
         """
