@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
-from game.core import generate_perlin_noise_2d, interpolant
+
+from game.utils.functions import generate_perlin_noise_2d, interpolant
 
 
 class TestPerlinNoise:

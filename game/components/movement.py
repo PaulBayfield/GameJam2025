@@ -1,7 +1,7 @@
 import pygame
 
-from .enums.keyboard import KeyboardType
-from .enums.direction import Direction
+from ..enums.keyboard import KeyboardType
+from ..enums.direction import Direction
 from typing import TYPE_CHECKING, Literal
 
 

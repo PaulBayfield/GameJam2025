@@ -1,8 +1,8 @@
 import pygame
 
 from pygame.event import Event
-from .enums.game import GameState
-from .enums.keyboard import KeyboardType
+from ..enums.game import GameState
+from ..enums.keyboard import KeyboardType
 from typing import TYPE_CHECKING
 
 

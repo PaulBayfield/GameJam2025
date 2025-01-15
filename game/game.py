@@ -1,16 +1,15 @@
 import pygame
 
-from typing import Optional
-from enum import Enum, auto
-from game.enemies.enemy_spawner import EnemySpawner
 from settings import Settings
-from .controller import Controller
-from .movement import Movement
-from .map import Map
-from .interface import Interface
-from .player import Player
+from .components.controller import Controller
+from .components.movement import Movement
+from .components.map import Map
+from .components.interface import Interface
+from .components.player import Player
+from .components.item import Item
 from .enums.game import GameState
-from .item import Item
+from .enemies.enemy_spawner import EnemySpawner
+from typing import Optional
 
 
 class Game:
@@ -211,22 +210,22 @@ class Game:
             # Efface l'ancienne position du joueur
             self.sprite_layer.fill((0, 0, 0, 0))
 
+            self.screen.blit(self.background_layer, (0, 0))
+            self.enemy_spawner.draw(self.sprite_layer)  # Draw enemies
+            self.screen.blit(self.sprite_layer, (0, 0))  # Draw sprites
+
             # Affiche le joueur à sa nouvelle position
             self.player.draw(self.sprite_layer)
 
             self.screen.blit(self.background_layer, (0, 0))
             self.screen.blit(self.sprite_layer, (0, 0))  # Draw sprites
-            
+
             # Affiche l'interface
             self.interface.draw()
             self.item.draw()
-            
+
             pygame.display.flip()
             self.clock.tick(self.settings.FPS)
-
-        self.screen.blit(self.background_layer, (0, 0))
-        self.enemy_spawner.draw(self.sprite_layer)  # Draw enemies
-        self.screen.blit(self.sprite_layer, (0, 0))  # Draw sprites
 
     def reset(self) -> None:
         """

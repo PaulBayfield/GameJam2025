@@ -3,7 +3,7 @@ import pygame
 
 from unittest.mock import Mock
 from game.enums.game import GameState
-from game.controller import Controller
+from game.components.controller import Controller
 from game.enums.keyboard import KeyboardType
 
 
