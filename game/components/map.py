@@ -24,8 +24,6 @@ class Map:
         """
         self.game = game
 
-        self.render = True
-
         self.generate()
 
     def generate(self) -> None:
@@ -63,39 +61,36 @@ class Map:
         :param screen: L'écran du jeu
         :type screen: pygame.Surface
         """
-        if self.render:  # Si la carte a été modifiée on la redessine
-            for y, row in enumerate(self.map):
-                for x, tile in enumerate(row):
-                    if "image" in tile.value.keys():
-                        image = pygame.image.load(
-                            tile.value["image"]
-                        ).convert_alpha()
-                        image = pygame.transform.scale(
-                            image,
-                            (
-                                self.game.settings.TILE_SIZE,
-                                self.game.settings.TILE_SIZE,
-                            ),
-                        )
-                        surface.blit(
-                            image,
-                            (
-                                x * self.game.settings.TILE_SIZE,
-                                y * self.game.settings.TILE_SIZE,
-                            ),
-                        )
-                    else:
-                        color = tile.value["color"]
+        for y, row in enumerate(self.map):
+            for x, tile in enumerate(row):
+                if "image" in tile.value.keys():
+                    image = pygame.image.load(
+                        tile.value["image"]
+                    ).convert_alpha()
+                    image = pygame.transform.scale(
+                        image,
+                        (
+                            self.game.settings.TILE_SIZE,
+                            self.game.settings.TILE_SIZE,
+                        ),
+                    )
+                    surface.blit(
+                        image,
+                        (
+                            x * self.game.settings.TILE_SIZE,
+                            y * self.game.settings.TILE_SIZE,
+                        ),
+                    )
+                else:
+                    color = tile.value["color"]
 
-                        pygame.draw.rect(
-                            surface,
-                            color,
-                            (
-                                x * self.game.settings.TILE_SIZE,
-                                y * self.game.settings.TILE_SIZE,
-                                self.game.settings.TILE_SIZE,
-                                self.game.settings.TILE_SIZE,
-                            ),
-                        )
-
-            # self.render = False
+                    pygame.draw.rect(
+                        surface,
+                        color,
+                        (
+                            x * self.game.settings.TILE_SIZE,
+                            y * self.game.settings.TILE_SIZE,
+                            self.game.settings.TILE_SIZE,
+                            self.game.settings.TILE_SIZE,
+                        ),
+                    )

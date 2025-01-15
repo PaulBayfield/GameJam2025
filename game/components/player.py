@@ -64,8 +64,8 @@ class Player(PlayerData, pygame.sprite.Sprite):
                         f"assets/sprites/hen/{direction.name.lower()}_{i}.png"
                     ),
                     (
-                        self.game.settings.TILE_SIZE,
-                        self.game.settings.TILE_SIZE,
+                        self.game.settings.TILE_SIZE * 1.5,
+                        self.game.settings.TILE_SIZE * 1.5,
                     ),
                 ).convert_alpha()
                 for i in range(1, self.SPRITE_FRAMES + 1)
@@ -247,5 +247,6 @@ class Player(PlayerData, pygame.sprite.Sprite):
             for enemy in self.game.enemy_spawner.enemies_list:
                 if self.rect.colliderect(enemy):
                     enemy.kill()
+                    self.game.enemy_spawner.enemies_list.remove(enemy)
 
                     self.game.stats.update("kills", 1)

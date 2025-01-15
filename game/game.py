@@ -228,6 +228,8 @@ class Game:
             self.interface.update()
             self.enemy_spawner.update()
         elif self.state == GameState.GAME_OVER:
+            self.stats.update("deaths", 1)
+
             self.end_time = datetime.now()
             self.stats.update(
                 "secondsPlayed", (self.end_time - self.start_time).seconds
