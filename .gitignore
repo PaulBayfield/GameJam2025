@@ -1,4 +1,5 @@
 .ruff_cache/
+stats.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
