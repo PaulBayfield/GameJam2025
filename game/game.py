@@ -267,6 +267,7 @@ class Game:
 
             # Affiche le joueur à sa nouvelle position
             self.player.draw(self.sprite_layer)
+            self.player.draw_damage(self.sprite_layer)
 
             self.screen.blit(self.background_layer, (0, 0))
             self.screen.blit(self.sprite_layer, (0, 0))  # Draw sprites

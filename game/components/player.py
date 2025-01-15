@@ -44,12 +44,21 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.time_to_heal = 0
         self.onFire = False
         self.beginInvincible = 0
+        self.isInvincible = False
 
         # Charge et cache toutes les animations de sprites
         self.sprites = self._load_all_sprites()
         self.current_sprite_index = 0.0
         self.image = self.sprites[self.direction][0]
         self.rect = self.image.get_rect(topleft=self.position)
+
+        self.damage_image = pygame.transform.scale(
+            pygame.image.load("assets/images/damaged.png"),
+            (
+                self.game.settings.WINDOW_WIDTH,
+                self.game.settings.WINDOW_HEIGHT,
+            ),
+        ).convert_alpha()
 
     def _load_all_sprites(self) -> Dict[Direction, List[pygame.Surface]]:
         """
@@ -243,12 +252,30 @@ class Player(PlayerData, pygame.sprite.Sprite):
         """
         screen.blit(self.image, self.position)
 
-    def isAttacked(self):
+    def isAttacked(self) -> None:
+        """
+        Vérifie si le joueur est attaqué par un ennemi
+        """
         if not self.onFire and time() - self.beginInvincible >= 1:
+            self.isInvincible = False
             for enemy in self.game.enemy_spawner.enemies_list:
                 if self.rect.colliderect(enemy):
                     self.damage(enemy.damage)
                     self.beginInvincible = time()
+                    self.isInvincible = True
+
+    def draw_damage(self, screen: pygame.Surface) -> None:
+        """
+        Dessine l'effet de dégâts sur l'écran
+
+        :param screen: La surface de l'écran
+        :type screen: pygame.Surface
+        """
+        if self.isInvincible:
+            # Alpha depends on health
+            alpha = 255 - (255 * self.health / self.MAX_HEALTH)
+            self.damage_image.set_alpha(alpha)
+            screen.blit(self.damage_image, (0, 0))
 
     def on_fire(self):
         if self.onFire:
