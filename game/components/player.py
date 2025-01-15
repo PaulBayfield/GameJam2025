@@ -59,7 +59,15 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.sprites = self._load_all_sprites()
         self.current_sprite_index = 0.0
         self.image = self.sprites[self.direction][0]
+        self.effect_sprites = self._load_effect_sprites()
+        self.current_effect_index = 0.0
         self.rect = self.image.get_rect(topleft=self.position)
+        self.collide_rect = pygame.Rect(
+            self.position.x + 5,
+            self.position.y + 5,
+            self.image.get_width() - 10,
+            self.image.get_height() - 10,
+        )
 
         self.damage_image = pygame.transform.scale(
             pygame.image.load("assets/images/damaged.png"),
@@ -68,6 +76,26 @@ class Player(PlayerData, pygame.sprite.Sprite):
                 self.game.settings.WINDOW_HEIGHT,
             ),
         ).convert_alpha()
+
+    def _load_effect_sprites(self) -> Dict[str, List[pygame.Surface]]:
+        """
+        Charge toutes les animations d'effets spéciaux
+
+        :return: Un dictionnaire de listes de surfaces pygame
+        :rtype: Dict[str, List[pygame.Surface]]
+        """
+        return {
+            "electric": [
+                pygame.transform.scale(
+                    pygame.image.load(f"assets/sprites/electric/{i}.png"),
+                    (
+                        self.game.settings.TILE_SIZE * 2,
+                        self.game.settings.TILE_SIZE * 2,
+                    ),
+                ).convert_alpha()
+                for i in range(1, 9)
+            ]
+        }
 
     def _load_all_sprites(self) -> Dict[Direction, List[pygame.Surface]]:
         """
@@ -183,6 +211,10 @@ class Player(PlayerData, pygame.sprite.Sprite):
 
         self._update_animation()
         self.rect.topleft = self.position
+        self.collide_rect.topleft = (
+            self.position.x + 5,
+            self.position.y + 5,
+        )
 
     def damage(self, amount: int) -> None:
         """
@@ -259,6 +291,21 @@ class Player(PlayerData, pygame.sprite.Sprite):
         :param screen: La surface de l'écran
         :type screen: pygame.Surface
         """
+        if self.onFire:
+            # Affichage un effet d'incendie sur le joueur
+            screen.blit(
+                self.effect_sprites["electric"][
+                    int(self.current_effect_index)
+                ],
+                (
+                    self.position.x - self.game.settings.TILE_SIZE // 2,
+                    self.position.y - self.game.settings.TILE_SIZE,
+                ),
+            )
+            self.current_effect_index = (
+                self.current_effect_index + 0.2
+            ) % len(self.effect_sprites["electric"])
+
         screen.blit(self.image, self.position)
 
     def isAttacked(self) -> None:
@@ -268,7 +315,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
         if not self.onFire and time() - self.beginInvincible >= 1:
             self.isInvincible = False
             for enemy in self.game.enemy_spawner.enemies_list:
-                if self.rect.colliderect(enemy):
+                if self.collide_rect.colliderect(enemy):
                     self.damage(enemy.damage)
                     scream = random.choice(self.screams)
                     scream.set_volume(0.5)
@@ -292,7 +339,8 @@ class Player(PlayerData, pygame.sprite.Sprite):
     def on_fire(self):
         if self.onFire:
             for enemy in self.game.enemy_spawner.enemies_list:
-                if self.rect.colliderect(enemy):
+                if self.collide_rect.colliderect(enemy):
                     enemy.kill()
+                    self.game.enemy_spawner.enemies_list.remove(enemy)
 
                     self.game.stats.update("kills", 1)

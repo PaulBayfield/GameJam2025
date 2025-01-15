@@ -108,4 +108,5 @@ class Enemy(pygame.sprite.Sprite):
 
         # Vérifie si l'ennemi est hors de l'écran
         if not self.game.screen.get_rect().colliderect(self.rect):
+            self.game.enemy_spawner.enemies_list.remove(self)
             self.kill()
