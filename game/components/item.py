@@ -1,6 +1,7 @@
 import pygame
 import random
 
+from time import time
 from typing import TYPE_CHECKING
 
 
@@ -21,7 +22,7 @@ class Item:
         :type game: Game
         """
         self.game = game
-        self.time = self.game.settings.FPS * 3
+
         self.item_image = pygame.transform.scale(
             pygame.image.load("assets/chalencon.png"),
             (self.game.settings.ITEM_SIZE, self.game.settings.ITEM_SIZE),
@@ -29,6 +30,8 @@ class Item:
         self.item_spawn = False
         self.item_effect = False
         self.rect = self.item_image.get_rect()
+
+        self.timestamp = time()
 
     def spawn_item(self):
         """
@@ -57,13 +60,11 @@ class Item:
             self.game.screen.blit(self.item_image, self.rect)
 
     def check_item(self):
-        if self.rect.colliderect(self.game.player.rect):
-            self.time = self.game.settings.FPS * 3
+        if self.rect.colliderect(self.game.player.rect) and self.item_spawn:
+            self.timestamp = time() + 5
             self.item_spawn = False
             self.item_effect = True
-            self
-        elif self.item_effect and self.time > 0:
-            self.time -= 1
-            self.game.player.on_fire()
-        elif self.time == 0:
+            self.game.player.onFire = True
+        elif self.timestamp < time():
             self.item_effect = False
+            self.game.player.onFire = False

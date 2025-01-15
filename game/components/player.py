@@ -42,6 +42,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.direction = Direction.DOWN
         self.damage_timestamp = int(time())
         self.time_to_heal = 0
+        self.onFire = False
 
         # Charge et cache toutes les animations de sprites
         self.sprites = self._load_all_sprites()
@@ -236,6 +237,9 @@ class Player(PlayerData, pygame.sprite.Sprite):
         screen.blit(self.image, self.position)
 
     def on_fire(self):
-        for enemy in self.game.enemy_spawner.enemies_list:
-            if self.rect.colliderect(enemy):
-                enemy.kill()
+        if self.onFire:
+            for enemy in self.game.enemy_spawner.enemies_list:
+                if self.rect.colliderect(enemy):
+                    enemy.kill()
+
+                    self.game.stats.update("kills", 1)
