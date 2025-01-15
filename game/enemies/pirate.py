@@ -1,6 +1,9 @@
-from game.enums.direction import Direction
-from .enemy import Enemy
 import random
+
+from ..enums.direction import Direction
+from .enemy import Enemy
+from time import time
+from random import randint
 
 
 class Pirate(Enemy):
@@ -19,16 +22,15 @@ class Pirate(Enemy):
         :param direction: Direction initiale (vecteur [dx, dy]).
         """
         super().__init__(game, x, y, speed, direction, "pirate")
-        self.can_change_direction = False
+
+        self.wait_time = randint(1, 5)
+        self.last_direction_change = time()
 
     def variant(self):
         """
         Changer la direction aléatoirement
         """
-        # Wait 3 seconds before changing direction
-        if self.can_change_direction:
-            self.can_change_direction = False
+        if time() - self.last_direction_change >= self.wait_time:
             self.direction = random.choice(list(Direction))
+            self.last_direction_change = time()
             self.current_sprite_index = 0
-        else:
-            self.can_change_direction = True
