@@ -201,6 +201,9 @@ class Game:
                 self.interface.paused()
         elif self.state == GameState.END:
             self.running = False
+            self.state = GameState.MENU
+            self.reset()
+            self.main_menu()
 
     def optimized_draw(self) -> None:
         """

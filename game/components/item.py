@@ -23,7 +23,8 @@ class Item:
         self.game = game
 
         self.item_image = pygame.transform.scale(
-            pygame.image.load("assets/chalencon.png"), (50, 50)
+            pygame.image.load("assets/chalencon.png"),
+            (self.game.settings.ITEM_SIZE, self.game.settings.ITEM_SIZE),
         )
         self.item_spawn = False
         self.item_effect = False
