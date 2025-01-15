@@ -25,6 +25,7 @@ class Pirate(Enemy):
 
         self.wait_time = randint(1, 5)
         self.last_direction_change = time()
+        self.damage = 10
 
     def variant(self):
         """

@@ -223,6 +223,7 @@ class Game:
         if self.state == GameState.PLAYING:
             self.player.move()
             self.player.on_fire()
+            self.player.isAttacked()
             self.player.heal()
             self.player.stamina_regen()
             self.interface.update()

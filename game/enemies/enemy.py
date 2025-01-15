@@ -43,6 +43,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(x, y))
         self.speed = speed
         self.current_sprite_index = 0.0
+        self.damage = 10
 
     def _load_all_sprites(
         self, sprite_url: str

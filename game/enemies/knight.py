@@ -17,3 +17,4 @@ class Knight(Enemy):
         :param direction: Direction initiale (vecteur [dx, dy]).
         """
         super().__init__(game, x, y, speed, direction, "knight")
+        self.damage = 20

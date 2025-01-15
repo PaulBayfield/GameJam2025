@@ -43,6 +43,7 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.damage_timestamp = int(time())
         self.time_to_heal = 0
         self.onFire = False
+        self.beginInvincible = 0
 
         # Charge et cache toutes les animations de sprites
         self.sprites = self._load_all_sprites()
@@ -241,6 +242,13 @@ class Player(PlayerData, pygame.sprite.Sprite):
         :type screen: pygame.Surface
         """
         screen.blit(self.image, self.position)
+
+    def isAttacked(self):
+        if not self.onFire and time() - self.beginInvincible >= 1:
+            for enemy in self.game.enemy_spawner.enemies_list:
+                if self.rect.colliderect(enemy):
+                    self.damage(enemy.damage)
+                    self.beginInvincible = time()
 
     def on_fire(self):
         if self.onFire:
