@@ -46,10 +46,14 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.onFire = False
         self.beginInvincible = 0
         self.isInvincible = False
+
         self.screams = [
             self.game.mixer.Sound("assets/songs/sfx/chicken_scream.wav"),
             self.game.mixer.Sound("assets/songs/sfx/chicken_scream2.wav"),
         ]
+        self.take_song = self.game.mixer.Sound(
+            "assets/songs/sfx/item_take.wav"
+        )
 
         # Charge et cache toutes les animations de sprites
         self.sprites = self._load_all_sprites()
