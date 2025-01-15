@@ -23,6 +23,8 @@ class Game:
         pygame.init()
 
         self.settings = Settings
+        self.settings.ITEM_SIZE = self.settings.TILE_SIZE * 1.8
+
         self.mixer = pygame.mixer
         self.footsteps = self.mixer.Sound("assets/songs/sfx/chicken_run.mp3")
         self.current_song = 0

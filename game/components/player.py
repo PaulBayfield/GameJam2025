@@ -58,8 +58,14 @@ class Player(PlayerData, pygame.sprite.Sprite):
         """
         return {
             direction: [
-                pygame.image.load(
-                    f"assets/sprites/hen/{direction.name.lower()}_{i}.png"
+                pygame.transform.scale(
+                    pygame.image.load(
+                        f"assets/sprites/hen/{direction.name.lower()}_{i}.png"
+                    ),
+                    (
+                        self.game.settings.TILE_SIZE,
+                        self.game.settings.TILE_SIZE,
+                    ),
                 ).convert_alpha()
                 for i in range(1, self.SPRITE_FRAMES + 1)
             ]
