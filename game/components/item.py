@@ -1,6 +1,7 @@
 import pygame
 import random
 
+from time import time
 from typing import TYPE_CHECKING
 
 
@@ -30,6 +31,8 @@ class Item:
         self.item_effect = False
         self.rect = self.item_image.get_rect()
 
+        self.timestamp = time()
+
     def spawn_item(self):
         """
         Fait apparaître l'item sur la carte
@@ -52,11 +55,16 @@ class Item:
             if random.random() < 0.002:  # 1% de chance que l'item apparaisse
                 self.spawn_item()
 
-        self.check_item_picked_up()
+        self.check_item()
         if self.item_spawn:
             self.game.screen.blit(self.item_image, self.rect)
 
-    def check_item_picked_up(self):
-        if self.rect.colliderect(self.game.player.rect):
+    def check_item(self):
+        if self.rect.colliderect(self.game.player.rect) and self.item_spawn:
+            self.timestamp = time() + 5
             self.item_spawn = False
             self.item_effect = True
+            self.game.player.onFire = True
+        elif self.timestamp < time():
+            self.item_effect = False
+            self.game.player.onFire = False
