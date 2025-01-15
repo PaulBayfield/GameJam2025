@@ -228,7 +228,7 @@ class Game:
             self.interface.update()
             self.enemy_spawner.update()
         elif self.state == GameState.GAME_OVER:
-            self.game.stats.update("deaths", 1)
+            self.stats.update("deaths", 1)
 
             self.end_time = datetime.now()
             self.stats.update(

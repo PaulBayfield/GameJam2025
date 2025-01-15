@@ -21,16 +21,12 @@ def generate_perlin_noise_2d(
 
     :param shape: La forme du tableau numpy généré (tuple de deux entiers).
     :type shape: tuple
-
     :param res: Le nombre de périodes de bruit à générer le long de chaque axe.
     :type res: tuple
-
     :param tileable: Si le bruit doit être tuilable le long de chaque axe.
     :type tileable: tuple
-
     :param interpolant: La fonction d'interpolation.
     :type interpolant: function
-
     :return: Un tableau numpy de bruit de Perlin.
     :rtype: numpy.ndarray
     """
