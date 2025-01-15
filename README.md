@@ -10,12 +10,14 @@ Run, Chicken, Run! est un jeu développé en Python dans le cadre de la Game Jam
 # 📖 • Sommaire
 
 - [🚀 • Présentation](#--présentation)
-- [🕯️ • L'histoire](#--lhistoire)
+- [🕯️ • L'histoire](#%EF%B8%8F--l-histoire)
 - [📦 • Installation](#--installation)
-- [▶️ • Lancement](#--lancement)
+- [▶️ • Lancement](#%EF%B8%8F--lancement)
+- [⚙️ • Configuration](#%EF%B8%8--configuration)
 - [🎮 • Règles du jeu](#--règles-du-jeu)
-- [⚙️ • Configuration](#--configuration)
+- [💻 • Développement](#--développement)
 - [🎨 • Contributeurs](#--contributeurs)
+- [📃 • Crédits](#--crédits)
 - [📝 • License](#--license)
 
 # 🚀 • Présentation
