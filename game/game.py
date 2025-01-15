@@ -10,6 +10,7 @@ from .map import Map
 from .interface import Interface
 from .player import Player
 from .enums.game import GameState
+from .item import Item
 
 
 class Game:
@@ -78,6 +79,7 @@ class Game:
         self.movement = Movement(self)
         self.map = Map(self)
         self.interface = Interface(self)
+        self.item = Item(self)
         self.enemy_spawner = EnemySpawner(self)
 
         # Dessine la carte pour la première fois
@@ -217,6 +219,7 @@ class Game:
             
             # Affiche l'interface
             self.interface.draw()
+            self.item.draw()
             
             pygame.display.flip()
             self.clock.tick(self.settings.FPS)
