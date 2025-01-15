@@ -26,6 +26,7 @@ class Item:
             pygame.image.load("assets/chalencon.png"), (50, 50)
         )
         self.item_spawn = False
+        self.item_effect = False
         self.rect = self.item_image.get_rect()
 
     def spawn_item(self):
@@ -57,3 +58,4 @@ class Item:
     def check_item_picked_up(self):
         if self.rect.colliderect(self.game.player.rect):
             self.item_spawn = False
+            self.item_effect = True
