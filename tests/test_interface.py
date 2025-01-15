@@ -1,7 +1,8 @@
 import pytest
 import pygame
+
 from unittest.mock import Mock, patch
-from game.interface import Interface
+from game.components.interface import Interface
 
 
 class TestInterface:

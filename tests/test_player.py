@@ -1,9 +1,10 @@
 import pytest
 import pygame
+
+from game.enums.direction import Direction
+from game.components.player import Player
 from unittest.mock import Mock, patch
 from typing import Dict, List
-from game.enums.direction import Direction
-from game.player import Player
 
 
 @pytest.fixture
