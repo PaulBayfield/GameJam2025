@@ -21,7 +21,7 @@ class Item:
         :type game: Game
         """
         self.game = game
-        self.time = 200
+        self.time = self.game.settings.FPS * 3
         self.item_image = pygame.transform.scale(
             pygame.image.load("assets/chalencon.png"),
             (self.game.settings.ITEM_SIZE, self.game.settings.ITEM_SIZE),
@@ -58,7 +58,7 @@ class Item:
 
     def check_item(self):
         if self.rect.colliderect(self.game.player.rect):
-            self.time = 200
+            self.time = self.game.settings.FPS * 3
             self.item_spawn = False
             self.item_effect = True
             self
