@@ -85,6 +85,7 @@ class Controller:
             # Traite la touche P
             if event.key == pygame.K_p:
                 if self.game.paused:
+                    self.game.footsteps.play(-1)
                     self.game.paused = False
                     self.game.state = GameState.PLAYING
                 else:

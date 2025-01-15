@@ -22,6 +22,7 @@ class Game:
 
         self.settings = Settings
         self.mixer = pygame.mixer
+        self.footsteps = self.mixer.Sound("assets/songs/sfx/chicken_run.mp3")
         self.current_song = 0
         self.playlist = [
             "assets/songs/music/1.mp3",
@@ -184,6 +185,9 @@ class Game:
 
         self.playInGameMusic()
 
+        self.footsteps.set_volume(0.1)
+        self.footsteps.play(-1)
+
         self.state = GameState.PLAYING
 
         while self.running:
@@ -214,11 +218,13 @@ class Game:
             self.interface.update()
             self.enemy_spawner.update()
         elif self.state == GameState.GAME_OVER:
+            self.footsteps.stop()
             self.interface.end()
             self.running = False
         elif self.state == GameState.PAUSED:
             if not self.paused:
                 self.paused = True
+                self.footsteps.stop()
                 self.interface.paused()
         elif self.state == GameState.END:
             self.running = False
