@@ -9,7 +9,9 @@ from .components.player import Player
 from .components.item import Item
 from .enums.game import GameState
 from .enemies.enemy_spawner import EnemySpawner
+from .utils.stats import Stats
 from typing import Optional
+from datetime import datetime
 
 
 class Game:
@@ -39,6 +41,8 @@ class Game:
         self.running = True
         self.paused = False
         self.state = GameState.MENU
+
+        self.stats = Stats()
 
     def _initialize_display(self) -> None:
         """
@@ -188,7 +192,10 @@ class Game:
         self.footsteps.set_volume(0.1)
         self.footsteps.play(-1)
 
+        self.stats.update("gamesPlayed", 1)
+
         self.state = GameState.PLAYING
+        self.start_time = datetime.now()
 
         while self.running:
             self.events()
@@ -218,6 +225,11 @@ class Game:
             self.interface.update()
             self.enemy_spawner.update()
         elif self.state == GameState.GAME_OVER:
+            self.end_time = datetime.now()
+            self.stats.update(
+                "secondsPlayed", (self.end_time - self.start_time).seconds
+            )
+
             self.footsteps.stop()
             self.interface.end()
             self.running = False
@@ -227,6 +239,11 @@ class Game:
                 self.footsteps.stop()
                 self.interface.paused()
         elif self.state == GameState.END:
+            self.end_time = datetime.now()
+            self.stats.update(
+                "secondsPlayed", (self.end_time - self.start_time).seconds
+            )
+
             self.running = False
             self.state = GameState.MENU
             self.reset()
