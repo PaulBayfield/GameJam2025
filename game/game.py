@@ -1,24 +1,16 @@
 import pygame
+
 from typing import Optional
 from enum import Enum, auto
+from game.enemies.enemy_spawner import EnemySpawner
 from settings import Settings
 from .controller import Controller
 from .movement import Movement
 from .map import Map
 from .interface import Interface
 from .player import Player
+from .enums.game import GameState
 from .item import Item
-
-
-class GameState(Enum):
-    """
-    Enumeration pour les états du jeu
-    """
-
-    MENU = auto()
-    PLAYING = auto()
-    PAUSED = auto()
-    GAME_OVER = auto()
 
 
 class Game:
@@ -39,6 +31,7 @@ class Game:
 
         self._prev_player_rect: Optional[pygame.Rect] = None
         self.running = True
+        self.paused = False
         self.state = GameState.MENU
 
     def _initialize_display(self) -> None:
@@ -87,6 +80,7 @@ class Game:
         self.map = Map(self)
         self.interface = Interface(self)
         self.item = Item(self)
+        self.enemy_spawner = EnemySpawner(self)
 
         # Dessine la carte pour la première fois
         self._init_background()
@@ -170,12 +164,17 @@ class Game:
         """
         pygame.display.set_caption("Game")
 
+        self.state = GameState.PLAYING
+
         while self.running:
             self.events()
             self.update()
             self.optimized_draw()
 
-        pygame.quit()
+        if self.state == GameState.END:
+            pygame.quit()
+        elif self.state == GameState.GAME_OVER:
+            pass
 
     def events(self) -> None:
         """
@@ -188,27 +187,52 @@ class Game:
         """
         Met à jour les composants du jeu
         """
-        self.player.move()
-        self.player.heal()
-        self.player.stamina_regen()
-        self.interface.update()
+        if self.state == GameState.PLAYING:
+            self.player.move()
+            self.player.heal()
+            self.player.stamina_regen()
+            self.interface.update()
+            self.enemy_spawner.update()
+        elif self.state == GameState.GAME_OVER:
+            self.interface.end()
+            self.running = False
+        elif self.state == GameState.PAUSED:
+            if not self.paused:
+                self.paused = True
+                self.interface.paused()
+        elif self.state == GameState.END:
+            self.running = False
 
     def optimized_draw(self) -> None:
         """
         Affichage optimisé du jeu
         """
-        # Efface l'ancienne position du joueur
-        self.sprite_layer.fill((0, 0, 0, 0))
+        if self.state == GameState.PLAYING:
+            # Efface l'ancienne position du joueur
+            self.sprite_layer.fill((0, 0, 0, 0))
 
-        # Affiche le joueur à sa nouvelle position
-        self.player.draw(self.sprite_layer)
+            # Affiche le joueur à sa nouvelle position
+            self.player.draw(self.sprite_layer)
+
+            self.screen.blit(self.background_layer, (0, 0))
+            self.screen.blit(self.sprite_layer, (0, 0))  # Draw sprites
+            
+            # Affiche l'interface
+            self.interface.draw()
+            self.item.draw()
+            
+            pygame.display.flip()
+            self.clock.tick(self.settings.FPS)
 
         self.screen.blit(self.background_layer, (0, 0))
+        self.enemy_spawner.draw(self.sprite_layer)  # Draw enemies
         self.screen.blit(self.sprite_layer, (0, 0))  # Draw sprites
 
-        # Affiche l'interface
-        self.interface.draw()
-        self.item.draw()
-
-        pygame.display.flip()
-        self.clock.tick(self.settings.FPS)
+    def reset(self) -> None:
+        """
+        Réinitialise le jeu
+        """
+        self._init_game_components()
+        self.running = True
+        self.paused = False
+        self._prev_player_rect = None
