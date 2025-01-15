@@ -1,6 +1,8 @@
 import pygame
 
+from game.enums.game import GameState
 from typing import TYPE_CHECKING
+
 
 if TYPE_CHECKING:
     from game.game import Game
@@ -35,6 +37,7 @@ class Interface:
         self.potion_image = pygame.transform.scale(
             pygame.image.load("assets/potion.png").convert_alpha(), (20, 20)
         )
+        self.font = pygame.font.Font(None, 50)
 
     def draw(self) -> None:
         """
@@ -138,3 +141,30 @@ class Interface:
 
             self.player_health = self.game.player.health
             self.player_stamina = self.game.player.stamina
+
+    def paused(self) -> None:
+        """
+        Affichage de l'écran de pause
+        """
+        text = self.font.render("Paused", True, (255, 255, 255))
+        text_x = self.game.settings.WINDOW_WIDTH // 2 - text.get_width() // 2
+        text_y = self.game.settings.WINDOW_HEIGHT // 2 - text.get_height() // 2
+
+        self.game.screen.blit(text, (text_x, text_y))
+        pygame.display.flip()
+
+    def end(self) -> None:
+        """
+        Affichage de l'écran de fin de partie
+        """
+        text = self.font.render("Game Over", True, (255, 255, 255))
+        text_x = self.game.settings.WINDOW_WIDTH // 2 - text.get_width() // 2
+        text_y = self.game.settings.WINDOW_HEIGHT // 2 - text.get_height() // 2
+
+        self.game.screen.blit(text, (text_x, text_y))
+        pygame.display.flip()
+
+        pygame.time.wait(2000)
+        self.game.state = GameState.MENU
+        self.game.reset()
+        self.game.main_menu()
