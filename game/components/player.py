@@ -1,3 +1,4 @@
+import random
 import pygame
 
 from ..dataclasses.player import PlayerData
@@ -45,6 +46,10 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.onFire = False
         self.beginInvincible = 0
         self.isInvincible = False
+        self.screams = [
+            self.game.mixer.Sound("assets/songs/sfx/chicken_scream.wav"),
+            self.game.mixer.Sound("assets/songs/sfx/chicken_scream2.wav"),
+        ]
 
         # Charge et cache toutes les animations de sprites
         self.sprites = self._load_all_sprites()
@@ -261,6 +266,9 @@ class Player(PlayerData, pygame.sprite.Sprite):
             for enemy in self.game.enemy_spawner.enemies_list:
                 if self.rect.colliderect(enemy):
                     self.damage(enemy.damage)
+                    scream = random.choice(self.screams)
+                    scream.set_volume(0.5)
+                    scream.play()
                     self.beginInvincible = time()
                     self.isInvincible = True
 
