@@ -1,8 +1,8 @@
 import pygame
 
-from .dataclasses.player import PlayerData
-from .enums.direction import Direction
-from .enums.game import GameState
+from ..dataclasses.player import PlayerData
+from ..enums.direction import Direction
+from ..enums.game import GameState
 from time import time
 from typing import Dict, List, TYPE_CHECKING
 

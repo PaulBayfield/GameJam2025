@@ -1,7 +1,15 @@
 import numpy as np
 
 
-def interpolant(t):
+def interpolant(t: np.ndarray) -> np.ndarray:
+    """
+    Fonction d'interpolation pour le bruit de Perlin.
+
+    :param t: Un tableau numpy de valeurs entre 0 et 1.
+    :type t: numpy.ndarray
+    :return: Un tableau numpy de valeurs interpolées.
+    :rtype: numpy.ndarray
+    """
     return t * t * t * (t * (t * 6 - 15) + 10)
 
 

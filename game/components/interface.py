@@ -1,6 +1,6 @@
 import pygame
 
-from game.enums.game import GameState
+from ..enums.game import GameState
 from typing import TYPE_CHECKING
 
 
