@@ -34,6 +34,12 @@ class Controller:
         if event.type == pygame.QUIT:
             self.game.running = False
 
+        if event.type == pygame.USEREVENT + 1:
+            self.game.current_song += 1
+            if self.game.current_song >= len(self.game.playlist):
+                self.game.current_song = 0
+            self.game.playInGameMusic()
+
         # Traite les touches du clavier
         if event.type == pygame.KEYDOWN:
             if self.game.state == GameState.PLAYING:
@@ -79,6 +85,7 @@ class Controller:
             # Traite la touche P
             if event.key == pygame.K_p:
                 if self.game.paused:
+                    self.game.footsteps.play(-1)
                     self.game.paused = False
                     self.game.state = GameState.PLAYING
                 else:

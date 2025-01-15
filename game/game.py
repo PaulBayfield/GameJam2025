@@ -21,6 +21,13 @@ class Game:
         pygame.init()
 
         self.settings = Settings
+        self.mixer = pygame.mixer
+        self.footsteps = self.mixer.Sound("assets/songs/sfx/chicken_run.mp3")
+        self.current_song = 0
+        self.playlist = [
+            "assets/songs/music/1.mp3",
+            "assets/songs/music/2.mp3",
+        ]
         self._initialize_display()
 
         self._create_layers()
@@ -134,6 +141,9 @@ class Game:
         """
         self._init_menu_background()
         pygame.display.set_caption("Menu")
+        self.mixer.music.load("assets/songs/music/menu.mp3")
+        self.mixer.music.play(-1)
+        self.mixer.music.set_volume(0.3)
 
         # Calule la position du texte du menu
         text_x = (
@@ -157,11 +167,26 @@ class Game:
                 pygame.display.flip()
                 self.clock.tick(self.settings.FPS)
 
+    def playInGameMusic(self) -> None:
+        """
+        Joue la musique du jeu
+        """
+        self.mixer.music.load(self.playlist[self.current_song])
+        self.mixer.music.play()
+        self.mixer.music.set_volume(0.3)
+        self.mixer.music.set_endevent(pygame.USEREVENT + 1)
+
     def main(self) -> None:
         """
         Fonction principale du jeu
         """
         pygame.display.set_caption("Game")
+        # Jouer 3 musique à la suite (en boucle)
+
+        self.playInGameMusic()
+
+        self.footsteps.set_volume(0.1)
+        self.footsteps.play(-1)
 
         self.state = GameState.PLAYING
 
@@ -193,11 +218,13 @@ class Game:
             self.interface.update()
             self.enemy_spawner.update()
         elif self.state == GameState.GAME_OVER:
+            self.footsteps.stop()
             self.interface.end()
             self.running = False
         elif self.state == GameState.PAUSED:
             if not self.paused:
                 self.paused = True
+                self.footsteps.stop()
                 self.interface.paused()
         elif self.state == GameState.END:
             self.running = False
