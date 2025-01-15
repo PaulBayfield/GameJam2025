@@ -1,3 +1,4 @@
+import random
 import pygame
 import numpy as np
 
@@ -32,7 +33,7 @@ class Map:
         """
         Fonction pour générer une carte aléatoire
         """
-        np.random.seed(0)
+        np.random.seed(random.randint(0, 1000))
         noise = generate_perlin_noise_2d(
             (
                 self.game.settings.WINDOW_HEIGHT
