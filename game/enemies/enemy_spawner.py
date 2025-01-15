@@ -1,8 +1,9 @@
 import pygame
 import random
-from game.enemies.knight import Knight
-from game.enemies.pirate import Pirate
-from game.enums.direction import Direction
+
+from .knight import Knight
+from .pirate import Pirate
+from ..enums.direction import Direction
 
 
 class EnemySpawner:

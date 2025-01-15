@@ -1,7 +1,9 @@
 import pygame
+import os
+
 from ..enums.direction import Direction
 from typing import TYPE_CHECKING
-import os
+
 
 if TYPE_CHECKING:
     from game.game import Game
