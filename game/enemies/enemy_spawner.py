@@ -11,6 +11,8 @@ class EnemySpawner:
     Classe pour gérer la génération d'ennemis en vagues.
     """
 
+    enemies_list = []
+
     def __init__(self, game, wave_interval=3000, max_enemies_per_wave=9):
         """
         Initialise le générateur d'ennemis.
@@ -54,6 +56,7 @@ class EnemySpawner:
             else:
                 speed = random.uniform(2, 4)
                 enemy = Pirate(self.game, x, y, speed, direction)
+            self.enemies_list.append(enemy)
             self.enemies.add(enemy)
 
     def update(self):

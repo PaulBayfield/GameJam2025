@@ -21,7 +21,7 @@ class Item:
         :type game: Game
         """
         self.game = game
-
+        self.time = 200
         self.item_image = pygame.transform.scale(
             pygame.image.load("assets/chalencon.png"),
             (self.game.settings.ITEM_SIZE, self.game.settings.ITEM_SIZE),
@@ -52,11 +52,18 @@ class Item:
             if random.random() < 0.002:  # 1% de chance que l'item apparaisse
                 self.spawn_item()
 
-        self.check_item_picked_up()
+        self.check_item()
         if self.item_spawn:
             self.game.screen.blit(self.item_image, self.rect)
 
-    def check_item_picked_up(self):
+    def check_item(self):
         if self.rect.colliderect(self.game.player.rect):
+            self.time = 200
             self.item_spawn = False
             self.item_effect = True
+            self
+        elif self.item_effect and self.time > 0:
+            self.time -= 1
+            self.game.player.on_fire()
+        elif self.time == 0:
+            self.item_effect = False

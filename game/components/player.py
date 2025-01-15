@@ -234,3 +234,8 @@ class Player(PlayerData, pygame.sprite.Sprite):
         :type screen: pygame.Surface
         """
         screen.blit(self.image, self.position)
+
+    def on_fire(self):
+        for enemy in self.game.enemy_spawner.enemies_list:
+            if self.rect.colliderect(enemy):
+                enemy.kill()
