@@ -47,6 +47,10 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.beginInvincible = 0
         self.isInvincible = False
 
+        self.swords = [
+            self.game.mixer.Sound("assets/songs/sfx/sword1.wav"),
+            self.game.mixer.Sound("assets/songs/sfx/sword2.wav"),
+        ]
         self.screams = [
             self.game.mixer.Sound("assets/songs/sfx/chicken_scream.wav"),
             self.game.mixer.Sound("assets/songs/sfx/chicken_scream2.wav"),
@@ -318,9 +322,9 @@ class Player(PlayerData, pygame.sprite.Sprite):
             for enemy in self.game.enemy_spawner.enemies_list:
                 if self.collide_rect.colliderect(enemy):
                     self.damage(enemy.damage)
-                    scream = random.choice(self.screams)
-                    scream.set_volume(0.5)
-                    scream.play()
+                    sword = random.choice(self.swords)
+                    sword.set_volume(0.5)
+                    sword.play()
                     self.beginInvincible = time()
                     self.isInvincible = True
 
@@ -341,7 +345,9 @@ class Player(PlayerData, pygame.sprite.Sprite):
         if self.onFire:
             for enemy in self.game.enemy_spawner.enemies_list:
                 if self.collide_rect.colliderect(enemy):
+                    scream = random.choice(self.screams)
+                    scream.set_volume(0.5)
+                    scream.play()
                     enemy.kill()
                     self.game.enemy_spawner.enemies_list.remove(enemy)
-
                     self.game.stats.update("kills", 1)
