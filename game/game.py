@@ -42,7 +42,7 @@ class Game:
         self._prev_player_rect: Optional[pygame.Rect] = None
         self.running = True
         self.paused = False
-        self.state = GameState.MENU
+        self.state = GameState.CINEMATIC
 
         self.stats = Stats()
 
@@ -140,6 +140,12 @@ class Game:
             )
 
             self.menu_text = pygame.transform.scale(self.menu_text, text_size)
+
+    def start_cinematic(self) -> None:
+        """
+        Lance la cinématique de début du jeu
+        """
+        self.interface.cinematic()
 
     def main_menu(self) -> None:
         """
