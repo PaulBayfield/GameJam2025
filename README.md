@@ -40,6 +40,11 @@ Pour installer le jeu, il suffit de cloner le dépôt Git :
 git clone https://github.com/PaulBayfield/GameJam2025.git
 ```
 
+Ou bien de télécharger la dernière release et de la décomprésser :
+```bash
+tar -xf archive.tar.gz
+```
+
 Puis de se rendre dans le dossier du jeu :
 
 ```bash
