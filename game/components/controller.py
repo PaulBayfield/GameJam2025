@@ -38,7 +38,7 @@ class Controller:
             self.game.current_song += 1
             if self.game.current_song >= len(self.game.playlist):
                 self.game.current_song = 0
-            self.game.playInGameMusic()
+            self.game.play_in_game_music()
 
         # Traite les touches du clavier
         if event.type == pygame.KEYDOWN:

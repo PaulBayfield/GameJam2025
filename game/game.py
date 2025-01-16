@@ -189,7 +189,7 @@ class Game:
                 pygame.display.flip()
                 self.clock.tick(self.settings.FPS)
 
-    def playInGameMusic(self) -> None:
+    def play_in_game_music(self) -> None:
         """
         Joue la musique du jeu
         """
@@ -205,7 +205,7 @@ class Game:
         pygame.display.set_caption("Game")
         # Jouer 3 musique à la suite (en boucle)
 
-        self.playInGameMusic()
+        self.play_in_game_music()
 
         self.footsteps.set_volume(0.1)
         self.footsteps.play(-1)
@@ -254,7 +254,7 @@ class Game:
             )
 
             self.footsteps.stop()
-            self.interface.end()
+            self.interface.end((self.end_time - self.start_time).seconds)
             self.running = False
         elif self.state == GameState.PAUSED:
             if not self.paused:
@@ -262,7 +262,7 @@ class Game:
                 self.footsteps.stop()
                 self.interface.paused()
         elif self.state == GameState.END:
-            self.stats.end_time = datetime.now()
+            self.end_time = datetime.now()
             self.footsteps.stop()
             self.stats.update(
                 "secondsPlayed", (self.end_time - self.start_time).seconds
