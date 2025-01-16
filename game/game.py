@@ -64,7 +64,7 @@ class Game:
             else pygame.SCALED,
         )
 
-        pygame.display.set_caption("Game")
+        pygame.display.set_caption("Run, Chicken, Run!")
         icon = pygame.image.load("assets/chicken.png").convert_alpha()
         pygame.display.set_icon(icon)
 
@@ -152,7 +152,7 @@ class Game:
         Affiche le menu principal du jeu
         """
         self._init_menu_background()
-        pygame.display.set_caption("Menu")
+        pygame.display.set_caption("Menu - Run, Chicken, Run!")
         self.mixer.music.load("assets/songs/music/menu.mp3")
         self.mixer.music.play(-1)
         self.mixer.music.set_volume(0.3)
@@ -202,7 +202,7 @@ class Game:
         """
         Fonction principale du jeu
         """
-        pygame.display.set_caption("Game")
+        pygame.display.set_caption("Run, Chicken, Run!")
         # Jouer 3 musique à la suite (en boucle)
 
         self.play_in_game_music()
