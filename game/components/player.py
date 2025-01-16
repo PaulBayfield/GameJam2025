@@ -89,8 +89,8 @@ class Player(PlayerData, pygame.sprite.Sprite):
                 pygame.transform.scale(
                     pygame.image.load(f"assets/sprites/electric/{i}.png"),
                     (
-                        self.game.settings.TILE_SIZE * 2,
-                        self.game.settings.TILE_SIZE * 2,
+                        self.game.settings.TILE_SIZE * 3,
+                        self.game.settings.TILE_SIZE * 3,
                     ),
                 ).convert_alpha()
                 for i in range(1, 9)
@@ -195,7 +195,6 @@ class Player(PlayerData, pygame.sprite.Sprite):
         et gère les collisions avec les bords de l'écran
         """
         movement = pygame.math.Vector2()
-
         if self.direction == Direction.UP:
             movement.y = -self.speed
         elif self.direction == Direction.DOWN:
@@ -300,8 +299,8 @@ class Player(PlayerData, pygame.sprite.Sprite):
                     int(self.current_effect_index)
                 ],
                 (
-                    self.position.x - self.game.settings.TILE_SIZE // 2,
-                    self.position.y - self.game.settings.TILE_SIZE,
+                    self.position.x - self.game.settings.TILE_SIZE * 1.5 // 2,
+                    self.position.y - self.game.settings.TILE_SIZE * 1.5,
                 ),
             )
             self.current_effect_index = (
