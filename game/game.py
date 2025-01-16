@@ -176,10 +176,20 @@ class Game:
             if self.running:
                 self.screen.blit(self.menu_background, (0, 0))
                 self.screen.blit(self.menu_text, (text_x, text_y))
+
+                # Display stats
+                stats_text = self.stats.get_formatted_stats()
+                font = pygame.font.SysFont(None, 36)
+                y_offset = 50
+                for line in stats_text.splitlines():
+                    stats_surface = font.render(line, True, (255, 255, 255))
+                    self.screen.blit(stats_surface, (20, y_offset))
+                    y_offset += 40
+
                 pygame.display.flip()
                 self.clock.tick(self.settings.FPS)
 
-    def playInGameMusic(self) -> None:
+    def play_in_game_music(self) -> None:
         """
         Joue la musique du jeu
         """
@@ -195,7 +205,7 @@ class Game:
         pygame.display.set_caption("Game")
         # Jouer 3 musique à la suite (en boucle)
 
-        self.playInGameMusic()
+        self.play_in_game_music()
 
         self.footsteps.set_volume(0.1)
         self.footsteps.play(-1)
@@ -211,6 +221,7 @@ class Game:
             self.optimized_draw()
 
         if self.state == GameState.END:
+            print("end")
             pygame.quit()
         elif self.state == GameState.GAME_OVER:
             pass
@@ -243,7 +254,7 @@ class Game:
             )
 
             self.footsteps.stop()
-            self.interface.end()
+            self.interface.end((self.end_time - self.start_time).seconds)
             self.running = False
         elif self.state == GameState.PAUSED:
             if not self.paused:
@@ -252,6 +263,7 @@ class Game:
                 self.interface.paused()
         elif self.state == GameState.END:
             self.end_time = datetime.now()
+            self.footsteps.stop()
             self.stats.update(
                 "secondsPlayed", (self.end_time - self.start_time).seconds
             )

@@ -153,7 +153,7 @@ class Interface:
         self.game.screen.blit(text, (text_x, text_y))
         pygame.display.flip()
 
-    def end(self) -> None:
+    def end(self, seconds: int) -> None:
         """
         Affichage de l'écran de fin de partie
         """
@@ -161,10 +161,22 @@ class Interface:
         text_x = self.game.settings.WINDOW_WIDTH // 2 - text.get_width() // 2
         text_y = self.game.settings.WINDOW_HEIGHT // 2 - text.get_height() // 2
 
+        elapsed_time_text = self.font.render(
+            f"Time: {seconds} seconds", True, (255, 255, 255)
+        )
+        elapsed_time_x = (
+            self.game.settings.WINDOW_WIDTH // 2
+            - elapsed_time_text.get_width() // 2
+        )
+        elapsed_time_y = text_y + text.get_height() + 10
+
         self.game.screen.blit(text, (text_x, text_y))
+        self.game.screen.blit(
+            elapsed_time_text, (elapsed_time_x, elapsed_time_y)
+        )
         pygame.display.flip()
 
-        pygame.time.wait(2000)
+        pygame.time.wait(5000)
         self.game.state = GameState.MENU
         self.game.reset()
         self.game.main_menu()
