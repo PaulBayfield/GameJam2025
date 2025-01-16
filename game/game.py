@@ -42,7 +42,7 @@ class Game:
         self._prev_player_rect: Optional[pygame.Rect] = None
         self.running = True
         self.paused = False
-        self.state = GameState.MENU
+        self.state = GameState.CINEMATIC
 
         self.stats = Stats()
 
@@ -141,6 +141,12 @@ class Game:
 
             self.menu_text = pygame.transform.scale(self.menu_text, text_size)
 
+    def start_cinematic(self) -> None:
+        """
+        Lance la cinématique de début du jeu
+        """
+        self.interface.cinematic()
+
     def main_menu(self) -> None:
         """
         Affiche le menu principal du jeu
@@ -223,6 +229,7 @@ class Game:
         if self.state == GameState.PLAYING:
             self.player.move()
             self.player.on_fire()
+            self.player.isAttacked()
             self.player.heal()
             self.player.stamina_regen()
             self.interface.update()
@@ -268,6 +275,7 @@ class Game:
 
             # Affiche le joueur à sa nouvelle position
             self.player.draw(self.sprite_layer)
+            self.player.draw_damage(self.sprite_layer)
 
             self.screen.blit(self.background_layer, (0, 0))
             self.screen.blit(self.sprite_layer, (0, 0))  # Draw sprites

@@ -64,6 +64,8 @@ class Item:
             self.timestamp = time() + 5
             self.item_spawn = False
             self.item_effect = True
+            self.game.player.take_song.set_volume(0.3)
+            self.game.player.take_song.play()
             self.game.player.onFire = True
         elif self.timestamp < time():
             self.item_effect = False

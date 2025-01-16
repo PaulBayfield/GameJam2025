@@ -20,6 +20,7 @@ class EnemySpawner:
         :param wave_interval: Temps entre les vagues (en ms).
         :param max_enemies_per_wave: Nombre maximum d'ennemis par vague.
         """
+        EnemySpawner.enemies_list = []
         self.game = game
         self.wave_interval = wave_interval
         self.max_enemies_per_wave = max_enemies_per_wave

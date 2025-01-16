@@ -11,3 +11,4 @@ class GameState(Enum):
     PAUSED = auto()
     GAME_OVER = auto()
     END = auto()
+    CINEMATIC = auto()

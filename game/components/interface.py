@@ -168,3 +168,37 @@ class Interface:
         self.game.state = GameState.MENU
         self.game.reset()
         self.game.main_menu()
+
+    def cinematic(self):
+        """
+        Affichage de la cinématique de début de partie
+        """
+        img = pygame.image.load("assets/images/cinematic.png").convert_alpha()
+        scale = self.game.settings.WINDOW_HEIGHT / img.get_height()
+        new_size = (
+            int(img.get_width() * scale),
+            int(img.get_height() * scale),
+        )
+        img = pygame.transform.scale(img, new_size)
+
+        self.game.screen.blit(
+            img,
+            (self.game.settings.WINDOW_WIDTH // 2 - img.get_width() // 2, 0),
+        )
+
+        pygame.display.flip()
+
+        # Allow quitting the window with event
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                    pygame.quit()
+                    exit()
+                if event.type == pygame.KEYDOWN:
+                    running = False
+
+        self.game.state = GameState.MENU
+        self.game.reset()
+        self.game.main_menu()
