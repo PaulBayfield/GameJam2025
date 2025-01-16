@@ -49,3 +49,22 @@ class Stats:
         """
         with open("stats.json", "r", encoding="utf-8") as file:
             return json.load(file)
+
+    def get_formatted_stats(self):
+        """
+        Retourne les statistiques formatées sous forme de chaîne de caractères
+
+        :return: Statistiques formatées
+        :rtype: str
+        """
+        stats = self.load()
+        realName = {
+            "kills": "Ennemies tués",
+            "deaths": "Nombre de mort",
+            "secondsPlayed": "Secondes joué",
+            "gamesPlayed": "Parties jouées",
+        }
+        formatted_stats = "\n".join(
+            f"{realName[key]}: {value}" for key, value in stats.items()
+        )
+        return formatted_stats
