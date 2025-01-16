@@ -159,7 +159,10 @@ class Player(PlayerData, pygame.sprite.Sprite):
         :param damage_amount: Le montant de dégâts à infliger
         :type damage_amount: int
         """
-        self.damage(damage_amount)
+        if not self.isInvincible or time() - self.beginInvincible >= 1:
+            self.isInvincible = True
+            self.beginInvincible = time()
+            self.damage(damage_amount)
         self.position.x = max(
             0,
             min(
@@ -226,7 +229,6 @@ class Player(PlayerData, pygame.sprite.Sprite):
         self.health -= amount
         self.damage_timestamp = int(time())
         self.time_to_heal += int(2 + (1 * self.health_regen))
-
         if self.health <= 0:
             self.health = 0
             self.game.state = GameState.GAME_OVER

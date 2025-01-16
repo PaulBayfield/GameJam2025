@@ -176,7 +176,7 @@ class Interface:
         )
         pygame.display.flip()
 
-        pygame.time.wait(2000)
+        pygame.time.wait(5000)
         self.game.state = GameState.MENU
         self.game.reset()
         self.game.main_menu()
